@@ -1,77 +1,73 @@
 package de.thb.view;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JPanel;
-import javax.swing.table.TableCellRenderer;
-import java.awt.Component;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 public class TableEventUI extends JPanel {
 
+    private static final int GAP_BETWEEN = 10;
+    private static final int INITIAL_ROWS_NUMBER = 2;
+    private static String[] columnHeader = {
+            "#",
+            "Name",
+            "Available tickets",
+            "Booked tickets",
+            "Actual availability"};
+    private DefaultTableModel tableModel = new DefaultTableModel(null, columnHeader) {
+
+        @Override
+        public Class<?> getColumnClass(int col) {
+            return getValueAt(0, col).getClass();
+        }
+    };
+
+    private JTable table = new JTable(tableModel);
+    private JScrollPane scrollPane = new JScrollPane(table);
+    private JScrollBar vScroll = scrollPane.getVerticalScrollBar();
+    private boolean isAutoScroll;
+
     public TableEventUI(){
 
-        String[] columnNamesItem = {
-                "#",
-                "Name",
-                "Available tickets",
-                "Booked tickets",
-                "Actual availability"};
-
-//        Define rows and columns for second view (table view)
-        Vector<String> columnNames = new Vector<>();
-        for (String name : columnNamesItem) {
-            columnNames.addElement(name);
+        //Table row dynamically added when an event is generated
+        this.setLayout(new BorderLayout());
+        Dimension d = new Dimension(320, INITIAL_ROWS_NUMBER * table.getRowHeight());
+        table.setPreferredScrollableViewportSize(d);
+        for (int i = 0; i < INITIAL_ROWS_NUMBER; i++) {
+            addRow();
         }
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        vScroll.addAdjustmentListener(new AdjustmentListener() {
 
-        List<String> stringList = new ArrayList<>();
-        stringList.addAll(Arrays.asList(columnNamesItem));
-
-        Vector<String> rowOne = new Vector<>();
-        rowOne.addElement("1");
-        rowOne.addElement("Row1-Column2");
-        rowOne.addElement("Row1-Column3");
-        rowOne.addElement("Row1-Column4");
-        rowOne.addElement("Row1-Column4");
-
-        Vector<String> rowTwo = new Vector<>();
-        rowTwo.addElement("2");
-        rowTwo.addElement("Row2-Column2");
-        rowTwo.addElement("Row2-Column3");
-
-        Vector<String> row = new Vector<>();
-        Vector<Vector> rowData = new Vector<>();
-        stringList.forEach(
-                s -> {
-                    row.addElement(s);
-                    rowData.addElement(row);
-                }
-        );
-        rowData.addElement(rowOne);
-        rowData.addElement(rowTwo);
-
-        JTable table = new JTable(rowData, columnNames){
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-                Component returnComp = super.prepareRenderer(renderer, row, column);
-                Color alternateColor = Color.decode("#FFFAF0");
-                Color whiteColor = Color.WHITE;
-                if (!returnComp.getBackground().equals(getSelectionBackground())) {
-                    Color backgroundColor = (row % 2 == 0 ? alternateColor : whiteColor);
-                    returnComp.setBackground(backgroundColor);
-                }
-                return returnComp;
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                isAutoScroll = !e.getValueIsAdjusting();
             }
-        };
-        table.setPreferredScrollableViewportSize(new Dimension(700, 250));
+        });
+        this.add(scrollPane, BorderLayout.CENTER);
+        JPanel panel = new JPanel(new GridLayout(1,2));
+        panel.add(new JButton(new AbstractAction("Add Row") {
 
-        //Create the scroll pane and add the table to it.
-        JScrollPane scrollPaneForTable = new JScrollPane(table);
-        add(scrollPaneForTable);
-
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isAutoScroll) addRow();
+            }
+        }));
+        this.add(panel, BorderLayout.PAGE_END);
+        this.add(new Panel().add(EventUtilitiesUI.createButtons("Buy Tickets", GAP_BETWEEN-5)), BorderLayout.PAGE_END);
     }
+
+    private void addRow() {
+        tableModel.addRow(new Object[] {
+                " EventID",
+                "event name",
+                "Number of tickets",
+                "book some tickets",
+                "Actual availability"
+        });
+    }
+
 }

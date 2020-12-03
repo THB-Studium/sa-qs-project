@@ -1,16 +1,13 @@
 package de.thb.view;
 
 
-import javax.swing.SpringLayout;
-import javax.swing.Spring;
+import javax.swing.*;
 
-import java.awt.Container;
-import java.awt.Component;
+import java.awt.*;
 
 
-public class EventUtilitiesUI {
+public class EventUtilitiesUI extends DefaultListCellRenderer{
 
-    /* Used by buildCompactGrid. */
     private static SpringLayout.Constraints getConstraintsForCell(int row, int col, Container parent, int cols) {
         SpringLayout layout = (SpringLayout) parent.getLayout();
         Component c = parent.getComponent(row * cols + col);
@@ -37,8 +34,8 @@ public class EventUtilitiesUI {
             int initialX,
             int initialY,
             int xPad,
-            int yPad
-    ) {
+            int yPad) {
+
         SpringLayout layout;
         try {
             layout = (SpringLayout) parent.getLayout();
@@ -81,5 +78,36 @@ public class EventUtilitiesUI {
         SpringLayout.Constraints pCons = layout.getConstraints(parent);
         pCons.setConstraint(SpringLayout.SOUTH, yPosition);
         pCons.setConstraint(SpringLayout.EAST, xPosition);
+    }
+
+    /**
+     * The EventListCellRenderer class generate a Jlist with alternating colors
+     * It will automatically do what's correct for the current look and feel
+     * @see javax.swing.DefaultListCellRenderer
+     *
+     */
+    private static class EventListCellRenderer extends DefaultListCellRenderer {
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (index % 2 == 0) setBackground(Color.decode("#E0FFFF"));
+            else setBackground(Color.WHITE);
+            return this;
+        }
+    }
+
+    public static ListCellRenderer getCellRenderer(){
+        return new EventListCellRenderer();
+    }
+
+    public static JComponent createButtons(String label, int padding) {
+
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        JButton button = new JButton(label);
+        panel.add(button);
+
+        // Match the SpringLayout's gap, subtracting 5 to make
+        // up for the default gap FlowLayout provides.
+        panel.setBorder(BorderFactory.createEmptyBorder(padding*2, 0, 0, padding - 5));
+        return panel;
     }
 }

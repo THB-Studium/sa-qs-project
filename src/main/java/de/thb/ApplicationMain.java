@@ -26,17 +26,13 @@ public class ApplicationMain extends JPanel {
         JTabbedPane tabbedPaneViewChooser = new JTabbedPane();
 
         tabbedPaneViewChooser.addTab("Dashboard", null, new DashboardUI(),
-                "Process to buy tickets");
+                "Dashboard");
 
         tabbedPaneViewChooser.setMnemonicAt(0, KeyEvent.VK_1);
 
-
-
-        tabbedPaneViewChooser.addTab("All records", null, new TableEventUI(),
-                "Process to show table list");
+        tabbedPaneViewChooser.addTab("Table records", null, new TableEventUI(),
+                "Table records");
         tabbedPaneViewChooser.setMnemonicAt(1, KeyEvent.VK_2);
-
-
 
         //Add the tabbed pane to this panel.
         add(tabbedPaneViewChooser);

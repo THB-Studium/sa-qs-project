@@ -5,14 +5,12 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
-import javax.swing.JButton;
 import javax.swing.BorderFactory;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import java.awt.Font;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -30,7 +28,7 @@ public class EventPropertyUI extends JPanel implements ActionListener, FocusList
     boolean addressSet = false;
     Font regularFont, italicFont;
     JLabel actualAvailabilityDisplay;
-    final static int GAP_BETWEEN = 10;
+    private final int GAP_BETWEEN = 10;
     final static int TEXTFIELD_COLUMN = 5;
 
     public EventPropertyUI() {
@@ -47,23 +45,10 @@ public class EventPropertyUI extends JPanel implements ActionListener, FocusList
         };
         leftHalf.setLayout(new BoxLayout(leftHalf, BoxLayout.PAGE_AXIS));
         leftHalf.add(createEntryFields());
-        leftHalf.add(createButtons());
+        leftHalf.add(EventUtilitiesUI.createButtons("Buy Tickets", GAP_BETWEEN));
 
         add(leftHalf);
         add(createActualAvailabilityDisplay());
-    }
-
-    protected JComponent createButtons() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
-
-        JButton button = new JButton("Buy Tickets");
-        button.addActionListener(this);
-        panel.add(button);
-
-        // Match the SpringLayout's gap, subtracting 5 to make
-        // up for the default gap FlowLayout provides.
-        panel.setBorder(BorderFactory.createEmptyBorder(GAP_BETWEEN*2, 0, 0, GAP_BETWEEN - 5));
-        return panel;
     }
 
     /**

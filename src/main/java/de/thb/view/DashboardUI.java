@@ -1,7 +1,5 @@
 package de.thb.view;
 
-import de.thb.ApplicationMain;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,7 +22,7 @@ public class DashboardUI extends JPanel {
 
         //JList mit Einträgen wird erstellt
         JList eventListField = new JList(eventListModel);
-        eventListField.setCellRenderer(new EventListCellRenderer());
+        eventListField.setCellRenderer(EventUtilitiesUI.getCellRenderer());
 
         for (String name : generatedEvents) {
             eventListModel.addElement(name);
@@ -38,15 +36,4 @@ public class DashboardUI extends JPanel {
 
     }
 
-    public class EventListCellRenderer extends DefaultListCellRenderer
-    {
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
-        {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (index % 2 == 0) setBackground(Color.decode("#E0FFFF"));
-            else setBackground(Color.WHITE);
-            setOpaque(true); // otherwise, it's transparent
-            return this;  // DefaultListCellRenderer derived from JLabel, DefaultListCellRenderer.getListCellRendererComponent returns this as well.
-        }
-    }
 }
