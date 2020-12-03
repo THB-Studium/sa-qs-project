@@ -60,14 +60,9 @@ public class EventPropertyUI extends JPanel implements ActionListener, FocusList
         button.addActionListener(this);
         panel.add(button);
 
-//        button = new JButton("Clear address");
-//        button.addActionListener(this);
-//        button.setActionCommand("clear");
-//        panel.add(button);
-
         // Match the SpringLayout's gap, subtracting 5 to make
         // up for the default gap FlowLayout provides.
-        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, GAP_BETWEEN - 5, GAP_BETWEEN - 5));
+        panel.setBorder(BorderFactory.createEmptyBorder(GAP_BETWEEN*2, 0, 0, GAP_BETWEEN - 5));
         return panel;
     }
 
@@ -103,10 +98,11 @@ public class EventPropertyUI extends JPanel implements ActionListener, FocusList
         updateDisplays();
 
         // Lay out the panel.
-        panel.setBorder(BorderFactory.createEmptyBorder(GAP_BETWEEN / 2, // top
-                0, // left
-                GAP_BETWEEN / 2, // bottom
-                0)); // right
+        panel.setBorder(BorderFactory.createEmptyBorder(
+                GAP_BETWEEN -5,
+                0,
+                GAP_BETWEEN -5,
+                0));
         panel.add(new JSeparator(JSeparator.VERTICAL), BorderLayout.LINE_START);
         panel.add(actualAvailabilityDisplay, BorderLayout.CENTER);
         panel.setPreferredSize(new Dimension(200, 150));
