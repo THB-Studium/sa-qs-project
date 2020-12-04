@@ -2,6 +2,8 @@ package de.thb.view;
 
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 import java.awt.*;
 
@@ -95,6 +97,22 @@ public class EventUtilitiesUI extends DefaultListCellRenderer{
         }
     }
 
+    private static class ColumnColorRenderer extends DefaultTableCellRenderer {
+        Color backgroundColor;
+        public ColumnColorRenderer(Color backgroundColor) {
+            super();
+            this.backgroundColor = backgroundColor;
+        }
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,   boolean hasFocus, int row, int column) {
+            Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            cell.setBackground(backgroundColor);
+            return cell;
+        }
+    }
+
+    public static TableCellRenderer setColumnColor(Color color){
+        return new ColumnColorRenderer(color);
+    }
     public static ListCellRenderer getCellRenderer(){
         return new EventListCellRenderer();
     }
