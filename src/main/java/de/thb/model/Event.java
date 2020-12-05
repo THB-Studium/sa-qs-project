@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 
-public class Event {
+public class Event implements IEvent {
 
     private String name;
     private LocalDate date;
@@ -29,8 +29,8 @@ public class Event {
         this.numberOfTicket = (int) (Math.random() * (100 - 0 + 1) + 0);
     }
 
-    public void updateEventNumberOfTicket(int numberOfTicket) {
-        this.numberOfTicket = this.numberOfTicket - numberOfTicket;
+    public void updateEventNumberOfTicket(int numberOfTicketToBuy) {
+        this.numberOfTicket = this.numberOfTicket - numberOfTicketToBuy;
     }   
     
 }
