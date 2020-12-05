@@ -2,5 +2,7 @@ package de.thb.model;
 
 public interface IEvent {
 
-    Event createEvent();
+	public void createEvent();
+    public void updateEventNumberOfTicket(int numberOfTicket);
+    
 }
