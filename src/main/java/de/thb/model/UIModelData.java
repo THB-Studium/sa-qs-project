@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UIModelData extends Observable implements Serializable {
     private UUID Id;
     private Event event;
-    private int bookedTicket;
+    private int numberOfTicketToBuy;
     private int actualAvailability;
 
 }
