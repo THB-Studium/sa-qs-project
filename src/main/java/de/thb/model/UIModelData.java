@@ -10,7 +10,6 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class UIModelData extends Observable implements Serializable {
-
     private UUID Id;
     private Event event;
     private int bookedTicket;
