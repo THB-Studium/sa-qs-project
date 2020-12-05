@@ -12,6 +12,6 @@ public enum ConstantPercentage {
     }
 
     public float getPercentage() {
-        return percentage;
+        return percentage ;
     }
 }
