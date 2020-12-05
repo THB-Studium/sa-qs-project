@@ -32,9 +32,9 @@ public class ApplicationMain extends JPanel {
 
         tabbedPaneViewChooser.addTab("Table records", null, new TableEventUI(),
                 "Table records");
-        tabbedPaneViewChooser.setMnemonicAt(1, KeyEvent.VK_2);
-
-        //Add the tabbed pane to this panel.
+        //        tabbedPaneViewChooser.setMnemonicAt(1, KeyEvent.VK_2);
+        //
+        //        //Add the tabbed pane to this panel.
         add(tabbedPaneViewChooser);
 
         //The following line enables to use scrolling tabs.

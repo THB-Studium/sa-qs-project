@@ -2,7 +2,7 @@ package de.thb.presenter;
 
 public interface IMainComputer {
 
-    int calculateActualAvailability(int actual, int bookedTicket);
+    /*int calculateActualAvailability(int actual, int bookedTicket);
 
-    void onUIModelDataChanged();
+    void onUIModelDataChanged();*/
 }
